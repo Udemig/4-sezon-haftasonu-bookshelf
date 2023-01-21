@@ -1,28 +1,55 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 
-import {BrowserRouter,Routes,Route} from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import actionTypes from "./redux/actions/actionTypes";
-import api from "./api/api"
+import api from "./api/api";
 import urls from "./api/urls";
 
 function App() {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
+  const { booksState, categoriesState } = useSelector((state) => state);
 
-  useEffect(()=>{
+  useEffect(() => {
     /* fetch books */
-    dispatch({type:actionTypes.bookActions.GET_BOOKS_START})
-    api.get(urls.books)
-    .then((res)=>{
-      dispatch({type:actionTypes.bookActions.GET_BOOKS_SUCCESS,payload:res.data})
-    })
-    .catch((err)=>{
-      dispatch({type:actionTypes.bookActions.GET_BOOKS_FAIL,payload:"Serverda bir hata oluştu"})
-    })
-  },[])
+    dispatch({ type: actionTypes.bookActions.GET_BOOKS_START });
+    api
+      .get(urls.books)
+      .then((res) => {
+        dispatch({
+          type: actionTypes.bookActions.GET_BOOKS_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.bookActions.GET_BOOKS_FAIL,
+          payload: "Serverda bir hata oluştu",
+        });
+      });
+    /* fetch categories */
+    dispatch({ type: actionTypes.categoryActions.GET_CATEGORIES_START });
+    api
+      .get(urls.categories)
+      .then((res) => {
+        dispatch({
+          type: actionTypes.categoryActions.GET_CATEGORIES_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.categoryActions.GET_CATEGORIES_FAIL,
+          payload: "Serverda bir hata oluştu",
+        });
+      });
+  }, []);
+
+  if (booksState.success === false || categoriesState.success === false)
+    return null;
 
   return (
     <BrowserRouter>
