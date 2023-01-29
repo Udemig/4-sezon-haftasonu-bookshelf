@@ -17,6 +17,15 @@
       "isbn": "121234353554",
       "price": 69.99,
       "categoryId": "1"
+    },
+    {
+      "id": "1675024867995",
+      "name": "Yalnızız",
+      "author": "Peyami Safa",
+      "publisher": "Ötüken",
+      "isbn": "5435345345",
+      "price": 69.7,
+      "categoryId": "1"
     }
   ],
   "categories": [

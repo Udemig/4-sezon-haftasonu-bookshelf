@@ -7,6 +7,8 @@ import api from "../api/api";
 import urls from "../api/urls";
 import actionTypes from "../redux/actions/actionTypes";
 
+import { Link } from "react-router-dom";
+
 import CustomModal from "./CustomModal";
 
 const ListBooks = () => {
@@ -34,8 +36,11 @@ const ListBooks = () => {
   };
 
   return (
-    <>
-      <table className="table table-striped my-5">
+    <div className="my-5">
+      <div className="d-flex justify-content-end">
+        <Link to={"/add-book"} className="btn btn-primary">Kitap Ekle</Link>
+      </div>
+      <table className="table table-striped">
         <thead>
           <tr>
             <th scope="col">Sıra No</th>
@@ -66,7 +71,7 @@ const ListBooks = () => {
                     Sil
                   </button>
                   <button className="generalBtn editBtn">Güncelle</button>
-                  <button className="generalBtn detailBtn">Detay</button>
+                  <Link to={`/book-detail/${book.id}`} className="generalBtn ">Detay</Link>
                 </td>
               </tr>
             );
@@ -84,7 +89,7 @@ const ListBooks = () => {
         }}
         />
       )}
-    </>
+    </div>
   );
 };
 
