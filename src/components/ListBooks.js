@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -15,7 +15,19 @@ const ListBooks = () => {
   const dispatch = useDispatch();
   const { booksState, categoriesState } = useSelector((state) => state);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [willDeleteBook,setWillDeleteBook]=useState("")
+  const [willDeleteBook, setWillDeleteBook] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [filteredBooks, setFilteredBooks] = useState(booksState.books);
+
+  useEffect(() => {
+    console.log(searchText);
+    const temp = booksState.books.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchText.toLowerCase()) === true ||
+        item.author.toLowerCase().includes(searchText.toLowerCase()) === true
+    );
+    setFilteredBooks(temp);
+  }, [searchText]);
 
   const deleteBook = (id) => {
     dispatch({ type: actionTypes.bookActions.DELETE_BOOK_START });
@@ -36,9 +48,18 @@ const ListBooks = () => {
   };
 
   return (
-    <div className="my-5">
-      <div className="d-flex justify-content-end">
-        <Link to={"/add-book"} className="btn btn-primary">Kitap Ekle</Link>
+    <div className="container my-5">
+      <div className="d-flex justify-content-between">
+        <input
+          className="form-control w-75"
+          type="text"
+          placeholder="Aramak istediğiniz kitabın ismini girin..."
+          value={searchText}
+          onChange={(event) => setSearchText(event.target.value)}
+        />
+        <Link to={"/add-book"} className="btn btn-primary">
+          Kitap Ekle
+        </Link>
       </div>
       <table className="table table-striped">
         <thead>
@@ -51,7 +72,7 @@ const ListBooks = () => {
           </tr>
         </thead>
         <tbody>
-          {booksState.books.map((book, index) => {
+          {filteredBooks.map((book, index) => {
             const myCategory = categoriesState.categories.find(
               (item) => item.id === book.categoryId
             );
@@ -64,14 +85,20 @@ const ListBooks = () => {
                 <td>
                   <button
                     onClick={() => {
-                        setShowDeleteModal(true)
-                        setWillDeleteBook(book.id)
+                      setShowDeleteModal(true);
+                      setWillDeleteBook(book.id);
                     }}
                     className="generalBtn deleteBtn">
                     Sil
                   </button>
-                  <button className="generalBtn editBtn">Güncelle</button>
-                  <Link to={`/book-detail/${book.id}`} className="generalBtn ">Detay</Link>
+                  <Link
+                    to={`/edit-book/${book.id}`}
+                    className="generalBtn editBtn">
+                    Güncelle
+                  </Link>
+                  <Link to={`/book-detail/${book.id}`} className="generalBtn ">
+                    Detay
+                  </Link>
                 </td>
               </tr>
             );
@@ -84,9 +111,9 @@ const ListBooks = () => {
           message="Silmek istediğinize emin misiniz?"
           onCancel={() => setShowDeleteModal(false)}
           onConfirm={() => {
-            deleteBook(willDeleteBook)
-            setShowDeleteModal(false)
-        }}
+            deleteBook(willDeleteBook);
+            setShowDeleteModal(false);
+          }}
         />
       )}
     </div>

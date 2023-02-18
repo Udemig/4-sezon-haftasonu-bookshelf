@@ -14,3 +14,19 @@ Dependencies:
 
     - Router yapısını kur. +
     - UI kütüphanesi olarak bootstrap kullanılacak +
+
+    - Güncelleme işlemi:
+        a. Hangi kitabın güncelleme butonuna tıklanırsa o kitap ile ilgili
+        ayırt edici bir bilgi ilgili sayfaya taşınır. (URL ile)
+        b. URL içerisinden kitaba ait bilgi okunur (constructor kısmında)
+        c. URL'den okunan bilgiye göre ilgili kitap bilgisi getirilir.
+        (store'da bulunan booksState kullanılabilir.)
+        d. İlgili kitap bulunduktan sonra form için başlangıç state'i
+        olarak atanır.
+        e. ardından form kontrol edilir. (onSubmit)
+        f. validation sonrasında kitabın güncellenmesi gerektiğine emin olduktan
+        sonra önce api call ile (put) kitabın server tarafında güncellendiğinden
+        emin olmalıyız.
+        g. Emin olduktan sonra client tarafta store'umuzu güncelleyebiliriz.
+        (redux işleyişi)
+        h. dispatch işleminden sonra anasayfaya yönlendir.

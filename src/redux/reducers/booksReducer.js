@@ -9,6 +9,7 @@ const initialState={
 }
 
 const booksReducer=(state=initialState,action)=>{
+    //console.log(action);
     switch (action.type) {
         case actionTypes.bookActions.GET_BOOKS_START:
             return{
@@ -37,7 +38,7 @@ const booksReducer=(state=initialState,action)=>{
                 pending:true
             }
         case actionTypes.bookActions.DELETE_BOOK_SUCCESS:
-            let filteredBooks=state.books.filter(item => item.id !== action.payload)
+            var filteredBooks=state.books.filter(item => item.id !== action.payload)
             return{
                 ...state,
                 pending:false,
@@ -57,6 +58,21 @@ const booksReducer=(state=initialState,action)=>{
             return{
                 ...state,
                 books:[...state.books,action.payload]
+            }
+        case actionTypes.bookActions.EDIT_BOOK:
+            let temp=[]
+            for(let i=0;i<state.books.length;i++){
+                if(state.books[i].id !== action.payload.id){
+                    temp.push(state.books[i])
+                }else{
+                    temp.push(action.payload)
+                }
+            }
+            //var filteredBooks=state.books.filter(item=>item.id !== action.payload.id)
+            
+            return{
+                ...state,
+                books:temp
             }
         default:
             return state

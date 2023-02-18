@@ -2,30 +2,24 @@ import React, { useState } from "react";
 
 import Header from "../components/Header";
 
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import actionTypes from "../redux/actions/actionTypes";
-import { useNavigate } from "react-router-dom";
 
 import api from "../api/api";
 import urls from "../api/urls";
 
-const AddBook = () => {
-  const dispatch = useDispatch();
-  const navigate=useNavigate()
-  const { categoriesState } = useSelector((state) => state);
-  const [form, setForm] = useState({
-    id: String(new Date().getTime()),
-    name: "",
-    author: "",
-    publisher: "",
-    isbn: "",
-    price: "",
-    categoryId: categoriesState.categories[0].id,
-  });
+import actionTypes from "../redux/actions/actionTypes";
 
+const EditBook = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const params = useParams();
+  const { booksState, categoriesState } = useSelector((state) => state);
+  const myBook = booksState.books.find((item) => item.id === params.bookId);
+  //console.log(myBook);
+  const [form, setForm] = useState(myBook);
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(form);
     /* validation */
     if (form.name === "" || form.author === "" || form.categoryId === "") {
       alert("Kitap adı, Yazar alanı ve kategori alanı zorunludur");
@@ -35,20 +29,14 @@ const AddBook = () => {
       alert("Kitap ismi 2 karakterden az olamaz");
       return;
     }
-
-    /* request to api && dispatch store */
     api
-      .post(urls.books, form)
+      .put(`${urls.books}/${params.bookId}`, form)
       .then((res) => {
-        dispatch({
-          type: actionTypes.bookActions.ADD_BOOK,
-          payload: form,
-        });
-        navigate("/")
+        dispatch({ type: actionTypes.bookActions.EDIT_BOOK, payload: form });
+        navigate("/");
       })
       .catch((err) => {});
   };
-
   return (
     <div>
       <Header />
@@ -131,7 +119,7 @@ const AddBook = () => {
           </div>
           <select
             className="form-select"
-            //defaultValue={categoriesState.categories[0].id}
+            defaultValue={categoriesState.categories[0].id}
             value={form.categoryId}
             onChange={(event) =>
               setForm({ ...form, categoryId: event.target.value })
@@ -145,7 +133,7 @@ const AddBook = () => {
 
           <div className="d-flex justify-content-center my-5">
             <button className="btn btn-primary w-50" type="submit">
-              Kaydet
+              Güncelle
             </button>
           </div>
         </form>
@@ -154,4 +142,4 @@ const AddBook = () => {
   );
 };
 
-export default AddBook;
+export default EditBook;

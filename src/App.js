@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import BookDetail from "./pages/BookDetail";
 import AddBook from "./pages/AddBook";
 import Error from "./pages/Error";
+import EditBook from "./pages/EditBook";
 
 import { useDispatch, useSelector } from "react-redux";
 import actionTypes from "./redux/actions/actionTypes";
@@ -60,6 +61,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/book-detail/:bookId" element={<BookDetail />} />
         <Route path="/add-book" element={<AddBook />} />
+        <Route path="/edit-book/:bookId" element={<EditBook />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
