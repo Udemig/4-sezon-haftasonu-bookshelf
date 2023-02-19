@@ -27,6 +27,11 @@ const Header = () => {
                   Kitap Listele
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link active" to="/list-categories">
+                  Kategori Listele
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

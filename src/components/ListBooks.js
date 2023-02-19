@@ -57,9 +57,13 @@ const ListBooks = () => {
           value={searchText}
           onChange={(event) => setSearchText(event.target.value)}
         />
-        <Link to={"/add-book"} className="btn btn-primary">
-          Kitap Ekle
-        </Link>
+        {categoriesState.categories.length === 0 ? (
+          <Link to={"/add-category"}>Öncelikle Kategori Eklenmeli</Link>
+        ) : (
+          <Link to={"/add-book"} className="btn btn-primary">
+            Kitap Ekle
+          </Link>
+        )}
       </div>
       <table className="table table-striped">
         <thead>
