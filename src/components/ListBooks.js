@@ -27,7 +27,7 @@ const ListBooks = () => {
         item.author.toLowerCase().includes(searchText.toLowerCase()) === true
     );
     setFilteredBooks(temp);
-  }, [searchText]);
+  }, [searchText,booksState.books]);
 
   const deleteBook = (id) => {
     dispatch({ type: actionTypes.bookActions.DELETE_BOOK_START });

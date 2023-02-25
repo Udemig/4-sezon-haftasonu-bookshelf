@@ -14,7 +14,6 @@ const ListCategories = () => {
   const dispatch = useDispatch();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [willDeleteCategory, setWillDeleteCategory] = useState("");
-  const [tiklandiMi,setTiklandiMi]=useState(false)
   const deleteCategory = (id) => {
     api
       .delete(`${urls.categories}/${id}`)
@@ -65,7 +64,7 @@ const ListCategories = () => {
                     <tr key={category.id}>
                       <th scope="row">{index + 1}</th>
                       <td>{category.name}</td>
-                      <td onClick={()=>setTiklandiMi(true)}>{books.length}</td>
+                      <td>{books.length}</td>
                       <td>
                         <button
                           onClick={() => {
@@ -89,11 +88,6 @@ const ListCategories = () => {
           </tbody>
         </table>
       </div>
-      {
-        tiklandiMi === true && (
-            <div>Kutu<span onClick={()=>setTiklandiMi(false)}>kapat</span></div>
-        )
-      }
       {openDeleteModal === true && (
         <CustomModal
           title="Kategori Silme"

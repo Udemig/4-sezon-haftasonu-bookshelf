@@ -2,8 +2,16 @@
   "books": [],
   "categories": [
     {
-      "id": "1676840093909",
-      "name": "fsdf"
+      "id": "1677346446411",
+      "name": "Roman"
+    },
+    {
+      "id": "1677346451214",
+      "name": "Deneme"
+    },
+    {
+      "id": "1677346459404",
+      "name": "bilim kurgu deneme"
     }
   ]
 }

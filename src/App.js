@@ -9,6 +9,7 @@ import Error from "./pages/Error";
 import EditBook from "./pages/EditBook";
 import ListCategories from "./pages/ListCategories";
 import AddCategory from "./pages/AddCategory";
+import EditCategory from "./pages/EditCategory";
 
 import { useDispatch, useSelector } from "react-redux";
 import actionTypes from "./redux/actions/actionTypes";
@@ -66,6 +67,7 @@ function App() {
         <Route path="/edit-book/:bookId" element={<EditBook />} />
         <Route path="/list-categories" element={<ListCategories />} />
         <Route path="/add-category" element={<AddCategory />} />
+        <Route path="/edit-category/:categoryId" element={<EditCategory />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
