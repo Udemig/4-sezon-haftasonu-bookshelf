@@ -1,5 +1,15 @@
 {
-  "books": [],
+  "books": [
+    {
+      "id": "1677438724173",
+      "name": "yeşil peri gecesi",
+      "author": "ayfer tunç",
+      "publisher": "can yayınları",
+      "isbn": "444444444444",
+      "price": 50,
+      "categoryId": "1677346446411"
+    }
+  ],
   "categories": [
     {
       "id": "1677346446411",
@@ -12,6 +22,10 @@
     {
       "id": "1677346459404",
       "name": "bilim kurgu deneme"
+    },
+    {
+      "id": "1677437573415",
+      "name": "deneme deneme deneme DENEME DeNeMe"
     }
   ]
 }

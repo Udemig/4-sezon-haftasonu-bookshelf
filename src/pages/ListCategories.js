@@ -8,6 +8,7 @@ import CustomModal from "../components/CustomModal";
 import api from "../api/api";
 import urls from "../api/urls";
 import actionTypes from "../redux/actions/actionTypes";
+import { upperFirstLetters } from "../utils/functions";
 
 const ListCategories = () => {
   const { categoriesState, booksState } = useSelector((state) => state);
@@ -63,7 +64,7 @@ const ListCategories = () => {
                   return (
                     <tr key={category.id}>
                       <th scope="row">{index + 1}</th>
-                      <td>{category.name}</td>
+                      <td>{upperFirstLetters(category.name)}</td>
                       <td>{books.length}</td>
                       <td>
                         <button

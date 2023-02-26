@@ -10,6 +10,8 @@ import actionTypes from "../redux/actions/actionTypes";
 import { Link } from "react-router-dom";
 
 import CustomModal from "./CustomModal";
+import { upperFirstLetters } from "../utils/functions";
+import Text from "./Text";
 
 const ListBooks = () => {
   const dispatch = useDispatch();
@@ -83,8 +85,8 @@ const ListBooks = () => {
             return (
               <tr key={book.id}>
                 <th scope="row">{index + 1}</th>
-                <td>{book.name}</td>
-                <td>{book.author}</td>
+                <td><Text style={{color: "red"}} text={book.name} /></td>
+                <td>{upperFirstLetters(book.author)}</td>
                 <td>{myCategory.name}</td>
                 <td>
                   <button
